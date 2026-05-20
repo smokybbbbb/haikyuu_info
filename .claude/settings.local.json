@@ -5,7 +5,9 @@
       "Bash(bash /Users/wichanon.c/Sites/localhost/haikyuu/download-images.sh)",
       "Bash(python3 -c ' *)",
       "WebFetch(domain:haikyuu.fandom.com)",
-      "WebFetch(domain:api.jikan.moe)"
+      "WebFetch(domain:api.jikan.moe)",
+      "Bash(mkdir -p /Users/wichanon.c/Sites/localhost/haikyuu/.claude)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

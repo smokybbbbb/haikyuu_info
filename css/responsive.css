@@ -42,6 +42,11 @@
   h1 { font-size: 2.4rem; }
   h2 { font-size: 1.8rem; }
 
+  /* Hero */
+  .hero { align-items: flex-start !important; }
+  .hero > .container { padding-top: 100px !important; padding-bottom: 60px; }
+  .hero__visual { display: none; }
+
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
 
@@ -61,7 +66,10 @@
   .footer__top { grid-template-columns: 1fr; gap: 28px; }
   .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
 
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 36px; padding-top: 28px; }
+  .synopsis__grid { grid-template-columns: 1fr; gap: 40px; }
+  .featured__grid { grid-template-columns: 1fr; }
 
   .char-grid { grid-template-columns: repeat(2, 1fr); }
 

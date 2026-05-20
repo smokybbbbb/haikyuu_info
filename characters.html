@@ -15,6 +15,12 @@
     .team-section { margin-bottom: 80px; }
     .char-card__img-wrap { aspect-ratio: 2/3; background: var(--light-gray, #f5f5f7); }
     .char-card[style*="display: none"] { display: none !important; }
+    @media (max-width: 768px) {
+      .char-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    }
+    @media (max-width: 360px) {
+      .char-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
