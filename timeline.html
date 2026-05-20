@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Timeline เรื่องราว Haikyuu!! — อาร์ค การแข่งขัน และเหตุการณ์สำคัญทั้งหมด"/>
+  <title>Timeline — Haikyuu!!</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <style>
+    .arc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 56px;
+      justify-content: center;
+    }
+    .arc-btn {
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      color: var(--gray-dark);
+      background: var(--white);
+      cursor: pointer;
+      transition: var(--trans);
+    }
+    .arc-btn:hover, .arc-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+    }
+    .season-block {
+      margin-bottom: 100px;
+    }
+    .season-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 24px;
+      background: #111111;
+      color: #ffffff;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      margin-bottom: 48px;
+    }
+    .season-label .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+    /* Mobile timeline override */
+    @media (max-width: 768px) {
+      .timeline::before { left: 16px; }
+      .timeline-item { grid-template-columns: 32px 1fr !important; }
+      .timeline-item .timeline-dot { grid-column: 1 !important; }
+      .timeline-item .timeline-card {
+        grid-column: 2 !important;
+        text-align: left !important;
+        padding-left: 20px !important;
+        padding-right: 0 !important;
+      }
+      .timeline-item .timeline-empty { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────── -->
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <div class="nav__logo-mark">HQ</div>
+    Haikyuu!!
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html"      class="nav__link">หน้าหลัก</a></li>
+    <li><a href="characters.html" class="nav__link">ตัวละคร</a></li>
+    <li><a href="timeline.html"   class="nav__link">Timeline</a></li>
+    <li><a href="trivia.html"     class="nav__link">เกร็ดความรู้</a></li>
+  </ul>
+  <button class="nav__toggle" aria-label="เมนู">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile-menu">
+  <a href="index.html"      class="nav__mobile-link">หน้าหลัก</a>
+  <a href="characters.html" class="nav__mobile-link">ตัวละคร</a>
+  <a href="timeline.html"   class="nav__mobile-link active">Timeline</a>
+  <a href="trivia.html"     class="nav__mobile-link">เกร็ดความรู้</a>
+</div>
+
+<!-- ─── Page Header ──────────────────────────────── -->
+<header class="page-header" style="background:var(--white);">
+  <div class="container">
+    <div class="label reveal">เส้นทางสู่ความฝัน</div>
+    <h1 class="reveal reveal-delay-1">Timeline</h1>
+    <p class="reveal reveal-delay-2">เรื่องราวของ Karasuno ตั้งแต่วันแรกถึงเวทีระดับประเทศ และชีวิตหลังจบมัธยม</p>
+  </div>
+</header>
+
+<!-- ─── Stats Bar ─────────────────────────────────── -->
+<div style="background:var(--white);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center;padding:28px 0;gap:1px;border-left:1px solid var(--border);">
+      <div style="padding:0 24px;border-right:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--orange);" data-count="45">0</div>
+        <div class="text-small text-gray">เล่ม Manga</div>
+      </div>
+      <div style="padding:0 24px;border-right:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--orange);" data-count="4">0</div>
+        <div class="text-small text-gray">ซีซัน Anime</div>
+      </div>
+      <div style="padding:0 24px;border-right:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--orange);" data-count="12">0</div>
+        <div class="text-small text-gray">อาร์คหลัก</div>
+      </div>
+      <div style="padding:0 24px;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--orange);" data-count="2020">0</div>
+        <div class="text-small text-gray">ปีที่จบเรื่อง</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Main Timeline ─────────────────────────────── -->
+<main class="section" style="background:var(--bg);">
+  <div class="container">
+
+    <!-- Arc Filter -->
+    <div class="arc-nav reveal">
+      <button class="arc-btn active" data-arc="all">ทั้งหมด</button>
+      <button class="arc-btn" data-arc="intro">Intro Arc</button>
+      <button class="arc-btn" data-arc="interhigh">Inter-High</button>
+      <button class="arc-btn" data-arc="training">Training Camp</button>
+      <button class="arc-btn" data-arc="spring">Spring High</button>
+      <button class="arc-btn" data-arc="national">Nationals</button>
+      <button class="arc-btn" data-arc="timeskip">Time Skip</button>
+    </div>
+
+    <!-- Season 1 / Intro -->
+    <div class="season-block" data-arc-group="intro interhigh">
+      <div class="season-label reveal">
+        <span class="dot"></span>
+        Anime Season 1 · Manga Vol. 1–13
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal" data-arc="intro">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">2012 · ก่อนเรื่องจะเริ่ม</div>
+            <h3>แรงบันดาลใจ — The Small Giant</h3>
+            <p>Hinata วัย 12 ปีดู Karasuno เล่นใน Inter-High บน TV ตกหลุมรักวอลเลย์บอลจาก "The Small Giant" ตัวเล็กที่กระโดดสูงเหมือนบิน</p>
+            <span class="timeline-card__result result--event">จุดเริ่มต้น</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="intro">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">เมษายน 2012 · Intro Arc</div>
+            <h3>Hinata เข้า Karasuno</h3>
+            <p>Hinata เจอ Kageyama เป็นคู่แข่งในตอนม.ต้น และมาพบกันอีกครั้งที่ Karasuno ทั้งสองกลายเป็นคู่หูกำเนิด "Freak Quick" ขึ้น</p>
+            <span class="timeline-card__result result--event">จุดเริ่มต้นคู่หู</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="interhigh">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">เมษายน 2012 · Inter-High Qualifier</div>
+            <h3>vs Date Tech — ผ่านรอบแรก</h3>
+            <p>Karasuno ชนะ Date Tech ในรอบ Qualifier ด้วย Spike ของ Asahi ที่ทะลุผ่าน Iron Wall ได้สำเร็จ Asahi กลับมาเล่นหลังจากหยุดไป</p>
+            <span class="timeline-card__result result--win">ชนะ</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="interhigh">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">เมษายน 2012 · Inter-High Qualifier</div>
+            <h3>vs Aoba Johsai — แพ้ครั้งแรก</h3>
+            <p>พบกับ Oikawa และ Aoba Johsai เป็นครั้งแรก ทีมยังไม่พร้อม แพ้ชัดเจน แต่ Freak Quick เริ่มแสดงศักยภาพให้เห็น</p>
+            <span class="timeline-card__result result--loss">แพ้ 0–2</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Season 2 / Training + Spring Qualifier -->
+    <div class="season-block" data-arc-group="training spring">
+      <div class="season-label reveal">
+        <span class="dot"></span>
+        Anime Season 2 · Manga Vol. 13–24
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal" data-arc="training">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">สิงหาคม 2012 · Training Camp</div>
+            <h3>โตเกียว Training Camp</h3>
+            <p>Karasuno ฝึกกับทีมโตเกียว Fukurodani, Nekoma, Ubugawa Tsukishima เจอ Kuroo และเริ่มพัฒนาการ Blocking ในระดับใหม่ Hinata สังเกตการเคลื่อนไหวจาก Keeper ที่ดีที่สุด</p>
+            <span class="timeline-card__result result--event">ฝึกซ้อม</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="training">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">สิงหาคม 2012 · Shiratorizawa Camp</div>
+            <h3>Tsukishima เจอ Akiteru (พี่ชาย)</h3>
+            <p>Tsukishima รู้ความจริงเกี่ยวกับพี่ชาย ประกอบกับคำของ Kuroo — "เพียง 1 แต้ม ก็เปลี่ยนทุกอย่าง" — เป็นจุดเปลี่ยนชีวิตของ Tsukki</p>
+            <span class="timeline-card__result result--event">Character Development</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="spring">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">ตุลาคม 2012 · Spring High Qualifier</div>
+            <h3>vs Aoba Johsai — แก้แค้น</h3>
+            <p>Karasuno กลับมาเจอ Aoba Johsai ครั้งที่ 2 ด้วยทีมที่พัฒนาขึ้นมหาศาล ชนะในเซตที่ 3 อย่างน่าตื่นเต้น Hinata กลับมาจากการบาดเจ็บด้วย Receive ที่ดีขึ้น</p>
+            <span class="timeline-card__result result--win">ชนะ 2–1</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="spring">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">ตุลาคม 2012 · Spring High Qualifier Final</div>
+            <h3>vs Shiratorizawa — ประวัติศาสตร์</h3>
+            <p>แมตช์ 5 เซตที่น่าจดจำที่สุดใน Qualifier Tsukishima บล็อค Ushijima ได้ 1 แต้มที่เปลี่ยนเกม Karasuno เอาชนะ Top 3 Ace ได้สำเร็จ</p>
+            <span class="timeline-card__result result--win">ชนะ 3–2 🏆</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Season 3 (Shiratorizawa Arc is in season 2 extended) + Season 4 -->
+    <div class="season-block" data-arc-group="national">
+      <div class="season-label reveal">
+        <span class="dot"></span>
+        Anime Season 3–4 · Manga Vol. 24–38
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal" data-arc="national">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">มกราคม 2013 · Spring High National</div>
+            <h3>เดินทางสู่โตเกียว — Nationals!</h3>
+            <p>Karasuno เดินทางสู่โตเกียวเพื่อ Spring High National เป็นครั้งแรกในรอบหลายปี ทีมงาน การ์ดและโค้ชเตรียมทีมอย่างเต็มที่ บรรยากาศเต็มไปด้วยความตื่นเต้น</p>
+            <span class="timeline-card__result result--event">Spring High National</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="national">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">มกราคม 2013 · Spring High Round 1</div>
+            <h3>vs Tsubakihara — รอบแรก</h3>
+            <p>แมตช์แรกใน National Hinata ตื่นเต้นมากจนเกือบหมดแรงก่อนเกม แต่ทีมผ่านรอบแรกได้</p>
+            <span class="timeline-card__result result--win">ชนะ 2–0</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="national">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">มกราคม 2013 · Spring High Round 2</div>
+            <h3>vs Inarizaki — พี่น้อง Miya</h3>
+            <p>แมตช์ตึงเครียดกับ Inarizaki ที่มีพี่น้อง Miya Atsumu-Osamu Hinata พัฒนา Receive ในระหว่างเกม เซตที่ 3 ระทึกทุกแต้ม</p>
+            <span class="timeline-card__result result--win">ชนะ 2–1</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="national">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">มกราคม 2013 · Spring High Quarter</div>
+            <h3>vs Nekoma — "Garbage Dump Match" 🗑️</h3>
+            <p>แมตช์ที่แฟนๆ รอคอยมาตลอดทั้งเรื่อง "Crows vs Cats" Karasuno ต้องใช้ทุกอย่างที่มีในที่สุด Hinata ทำ Receive ที่สำคัญที่สุดของเกม</p>
+            <span class="timeline-card__result result--win">ชนะ 2–1 ⭐</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="national">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">มกราคม 2013 · Spring High Semi-final</div>
+            <h3>vs Kamomedai — ความพ่ายแพ้</h3>
+            <p>Hinata ล้มป่วยด้วยไข้และต้องออกจากสนาม ทีมสู้อย่างสุดใจแต่ผลลัพธ์กลับเป็นความพ่ายแพ้ เป็นบทสรุปที่ขมขื่นแต่สวยงาม</p>
+            <span class="timeline-card__result result--loss">แพ้ 0–2</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Time Skip -->
+    <div class="season-block" data-arc-group="timeskip">
+      <div class="season-label reveal" style="background:var(--orange);">
+        <span class="dot" style="background:white;"></span>
+        Time Skip · Manga Vol. 40–45
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal" data-arc="timeskip">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card" style="border-color:var(--orange);border-width:2px;">
+            <div class="timeline-card__arc" style="color:var(--orange);">2013–2015 · หลังจบ ม.ปลาย</div>
+            <h3>Hinata เดินทางสู่บราซิล 🇧🇷</h3>
+            <p>Hinata ตัดสินใจไปฝึกวอลเลย์บอลบีชในบราซิลด้วยตัวเอง แม้ไม่ได้รับเชิญจากทีมใด เพื่อพัฒนาทักษะพื้นฐานจากศูนย์</p>
+            <span class="timeline-card__result result--event">Personal Journey</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="timeskip">
+          <div class="timeline-card">
+            <div class="timeline-card__arc">2013 · หลังจบ ม.ปลาย</div>
+            <h3>Kageyama — ทีมชาติญี่ปุ่น</h3>
+            <p>Kageyama ได้รับเลือกเข้าร่วม Japan U-21 Team ก่อนใครในรุ่น และต่อมาเป็น Setter ประจำทีมชาติ เป็น Setter ที่ดีที่สุดในเอเชีย</p>
+            <span class="timeline-card__result result--event">National Team</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="timeskip">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot"><div class="timeline-dot__inner"></div></div>
+          <div class="timeline-card">
+            <div class="timeline-card__arc">2013 · อนาคตตัวละคร</div>
+            <h3>แต่ละคนเดินทางของตัวเอง</h3>
+            <p>Daichi เป็นตำรวจ · Sugawara เป็นครู · Nishinoya ท่องเที่ยวต่างประเทศ · Tanaka และ Kiyoko แต่งงานกัน · Tsukishima เข้าทีม V-League</p>
+            <span class="timeline-card__result result--event">Epilogue</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" data-arc="timeskip">
+          <div class="timeline-card" style="border-color:var(--orange);border-width:2px;">
+            <div class="timeline-card__arc" style="color:var(--orange);">2018 · บทสรุปสุดท้าย</div>
+            <h3>MSBY Black Jackals vs Schweiden Adlers 🏆</h3>
+            <p>แมตช์ฝัน! Hinata (MSBY) กลับมาจากบราซิลและได้เจอ Kageyama (Schweiden) ในระดับ V-League Bokuto, Atsumu, Sakusa อยู่ฝั่ง MSBY ส่วน Ushijima, Hoshiumi อยู่ฝั่ง Schweiden</p>
+            <span class="timeline-card__result result--event">จุดสุดยอด ✨</span>
+          </div>
+          <div class="timeline-dot"><div class="timeline-dot__inner" style="background:var(--orange);box-shadow:0 0 0 4px var(--orange);"></div></div>
+          <div class="timeline-empty"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ─── Arcs Summary ───────────────────────────────── -->
+<section class="section--sm" style="background:var(--white);border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">สรุป</div>
+      <h2 style="margin:12px 0 16px;">อาร์คทั้งหมด</h2>
+    </div>
+    <div class="grid-3" id="arcs-grid">
+
+      <div class="reveal reveal-delay-1" style="padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🐣</div>
+        <h4 style="margin-bottom:8px;">Intro Arc</h4>
+        <p class="text-small text-gray">Hinata เข้า Karasuno พบ Kageyama กำเนิด Freak Quick</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 1–4</div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🏆</div>
+        <h4 style="margin-bottom:8px;">Inter-High Qualifier Arc</h4>
+        <p class="text-small text-gray">พบ Aoba Johsai ครั้งแรก Date Tech Iron Wall Asahi กลับมา</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 4–9</div>
+      </div>
+
+      <div class="reveal reveal-delay-3" style="padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🏕️</div>
+        <h4 style="margin-bottom:8px;">Tokyo Training Camp Arc</h4>
+        <p class="text-small text-gray">ฝึกกับทีมโตเกียว Tsukishima เจอ Kuroo พัฒนา Blocking</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 12–16</div>
+      </div>
+
+      <div class="reveal reveal-delay-1" style="padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">⚡</div>
+        <h4 style="margin-bottom:8px;">Spring High Qualifier Arc</h4>
+        <p class="text-small text-gray">แก้แค้น Aoba Johsai ชนะ Shiratorizawa เข้า Nationals</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 16–24</div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding:24px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🗑️</div>
+        <h4 style="margin-bottom:8px;">National Spring Tournament Arc</h4>
+        <p class="text-small text-gray">Inarizaki · Nekoma "Garbage Dump" · Kamomedai ความพ่ายแพ้</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 30–38</div>
+      </div>
+
+      <div class="reveal reveal-delay-3" style="padding:24px;background:linear-gradient(135deg,var(--orange-pale),#fff5ff);border:1.5px solid var(--orange);border-radius:var(--radius);">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🚀</div>
+        <h4 style="margin-bottom:8px;">Time Skip Arc</h4>
+        <p class="text-small text-gray">ชีวิตหลังมัธยม Hinata → บราซิล MSBY vs Schweiden</p>
+        <div style="margin-top:12px;font-size:0.75rem;color:var(--orange);font-weight:600;">Vol. 40–45</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="nav__logo" style="margin-bottom:16px;color:white;">
+          <div class="nav__logo-mark">HQ</div>
+          Haikyuu!!
+        </div>
+        <p>Fan Site สำหรับแฟนๆ Haikyuu!! ข้อมูลตัวละคร Timeline และเกร็ดความรู้ครบครัน</p>
+      </div>
+      <div class="footer__col">
+        <h4>เนื้อหา</h4>
+        <ul>
+          <li><a href="characters.html">ตัวละครทั้งหมด</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="trivia.html">เกร็ดความรู้</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>อาร์ค</h4>
+        <ul>
+          <li><a href="#" onclick="filterArc('intro')">Intro Arc</a></li>
+          <li><a href="#" onclick="filterArc('spring')">Spring High</a></li>
+          <li><a href="#" onclick="filterArc('national')">Nationals</a></li>
+          <li><a href="#" onclick="filterArc('timeskip')">Time Skip</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>เกี่ยวกับ</h4>
+        <ul>
+          <li><a href="#">Haikyuu!! Wiki</a></li>
+          <li><a href="#">Manga (Shueisha)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2024 Haikyuu!! Fan Site — ข้อมูลทั้งหมดเป็นสิทธิ์ของ Haruichi Furudate / Shueisha</div>
+      <div>สร้างด้วย ❤️</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* Arc Filter */
+function filterArc(arc) {
+  document.querySelectorAll('.arc-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.arc === arc || (arc === 'all' && btn.dataset.arc === 'all'));
+  });
+  document.querySelectorAll('.timeline-item[data-arc]').forEach(item => {
+    item.style.display = (arc === 'all' || item.dataset.arc === arc) ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('.arc-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.arc-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterArc(btn.dataset.arc);
+  });
+});
+</script>
+</body>
+</html>

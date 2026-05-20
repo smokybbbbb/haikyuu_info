@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Haikyuu!! — เว็บไซต์แฟนไซต์ครบครัน ข้อมูลตัวละคร Timeline เกร็ดความรู้ และสิ่งที่น่าสนใจทั้งหมด"/>
+  <title>Haikyuu!! — ไม่มีเพดาน</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────── -->
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <div class="nav__logo-mark">HQ</div>
+    Haikyuu!!
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html"      class="nav__link">หน้าหลัก</a></li>
+    <li><a href="characters.html" class="nav__link">ตัวละคร</a></li>
+    <li><a href="timeline.html"   class="nav__link">Timeline</a></li>
+    <li><a href="trivia.html"     class="nav__link">เกร็ดความรู้</a></li>
+  </ul>
+  <button class="nav__toggle" aria-label="เมนู">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile-menu">
+  <a href="index.html"      class="nav__mobile-link">หน้าหลัก</a>
+  <a href="characters.html" class="nav__mobile-link">ตัวละคร</a>
+  <a href="timeline.html"   class="nav__mobile-link">Timeline</a>
+  <a href="trivia.html"     class="nav__mobile-link">เกร็ดความรู้</a>
+</div>
+
+<!-- ─── Hero ─────────────────────────────────────── -->
+<section class="hero" style="min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--bg);">
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+
+  <div class="container" style="position:relative;z-index:1;padding-top:80px;">
+    <div style="display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;">
+
+      <div>
+        <div class="label reveal">การ์ตูนกีฬาที่ดีที่สุดตลอดกาล</div>
+        <h1 class="hero__title reveal reveal-delay-1" style="margin:16px 0 24px;line-height:1.05;">
+          <span class="word">ไม่มี</span><br/>
+          <span class="word" style="color:var(--orange);">เพดาน</span><br/>
+          <span class="word" style="font-size:0.55em;font-weight:400;color:var(--gray);">飛べ!</span>
+        </h1>
+        <p class="hero__subtitle reveal reveal-delay-2" style="font-size:1.1rem;color:var(--gray);max-width:440px;line-height:1.8;margin-bottom:36px;">
+          Haikyuu!! เรื่องราวของ Hinata Shoyo เด็กตัวเล็กที่ฝันจะบินสูง
+          ผ่านวอลเลย์บอล มิตรภาพ และการเอาชนะขีดจำกัดของตัวเอง
+        </p>
+        <div class="hero__cta reveal reveal-delay-3" style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="characters.html" class="btn btn--primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            ดูตัวละครทั้งหมด
+          </a>
+          <a href="timeline.html" class="btn btn--outline">
+            Timeline →
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="hero-stats reveal reveal-delay-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);">
+          <div>
+            <div style="font-size:2rem;font-weight:900;line-height:1;" data-count="402">0</div>
+            <div class="text-small text-gray" style="margin-top:4px;">ตอน Manga</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:900;line-height:1;" data-count="85">0</div>
+            <div class="text-small text-gray" style="margin-top:4px;">ตอน Anime</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:900;line-height:1;" data-count="60">0</div>
+            <div class="text-small text-gray" style="margin-top:4px;">ล้านเล่ม</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:900;line-height:1;" data-count="8">0</div>
+            <div class="text-small text-gray" style="margin-top:4px;">ปีที่ลง Jump</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volleyball Visual -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:32px;">
+        <div class="vball-container reveal reveal--right" style="position:relative;">
+          <div id="hero-volleyball"></div>
+          <div class="vball-shadow"></div>
+        </div>
+        <!-- Net -->
+        <div id="hero-net" style="width:100%;overflow:hidden;border-radius:4px;" class="reveal reveal--right reveal-delay-2"></div>
+        <!-- Quote -->
+        <div class="reveal reveal--right reveal-delay-3" style="text-align:center;max-width:320px;">
+          <p style="font-size:0.9rem;font-style:italic;color:var(--gray);line-height:1.8;" data-typewrite='"ตราบใดที่ยังมีแต้มที่จะทำต่อ ฉันจะไม่ยอมแพ้"'></p>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--gray-light);margin-top:8px;">— Hinata Shoyo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;">
+    <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);">เลื่อนลง</div>
+    <div style="width:1px;height:40px;background:linear-gradient(to bottom,var(--orange),transparent);animation:pulse 2s infinite;"></div>
+  </div>
+</section>
+
+<!-- ─── Marquee ────────────────────────────────────── -->
+<div class="marquee-track" style="padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--white);">
+  <div class="marquee-inner">
+    <div class="marquee-item">Karasuno High</div>
+    <div class="marquee-item">Aoba Johsai</div>
+    <div class="marquee-item">Nekoma</div>
+    <div class="marquee-item">Fukurodani</div>
+    <div class="marquee-item">Shiratorizawa</div>
+    <div class="marquee-item">Inarizaki</div>
+    <div class="marquee-item">Itachiyama</div>
+    <div class="marquee-item">飛べ!</div>
+    <div class="marquee-item">Karasuno High</div>
+    <div class="marquee-item">Aoba Johsai</div>
+    <div class="marquee-item">Nekoma</div>
+    <div class="marquee-item">Fukurodani</div>
+    <div class="marquee-item">Shiratorizawa</div>
+    <div class="marquee-item">Inarizaki</div>
+    <div class="marquee-item">Itachiyama</div>
+    <div class="marquee-item">飛べ!</div>
+  </div>
+</div>
+
+<!-- ─── Synopsis ──────────────────────────────────── -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <div class="label reveal">เรื่องย่อ</div>
+        <h2 class="reveal reveal-delay-1" style="margin:12px 0 24px;">เมื่อโปสเตอร์เก่า<br/>จุดประกายความฝัน</h2>
+        <div class="divider" style="margin:0 0 24px;"></div>
+        <p class="reveal reveal-delay-2" style="line-height:1.9;margin-bottom:20px;">
+          Hinata Shoyo เด็กชายตัวเล็กที่ได้รับแรงบันดาลใจจาก "The Small Giant"
+          นักวอลเลย์บอลตัวเล็กที่ยิ่งใหญ่ของ Karasuno High เขาเข้าสู่วงการวอลเลย์บอล
+          ทั้งที่ไม่มีทีมฝึกซ้อมและไม่มีประสบการณ์
+        </p>
+        <p class="reveal reveal-delay-3" style="line-height:1.9;margin-bottom:32px;">
+          เมื่อเข้า Karasuno High เขาพบกับ Kageyama Tobio "กษัตริย์แห่งสนาม"
+          อดีตคู่แข่ง ทั้งสองเริ่มต้นเส้นทางใหม่ในฐานะคู่หู
+          ผ่านการฝึกซ้อม การแข่งขัน และมิตรภาพที่เปลี่ยนแปลงทุกคน
+        </p>
+        <a href="timeline.html" class="btn btn--primary reveal reveal-delay-4">ดู Timeline เต็มๆ →</a>
+      </div>
+
+      <!-- Series Info Card -->
+      <div class="reveal reveal--right" style="background:var(--bg);border-radius:var(--radius-l);padding:40px;border:1px solid var(--border);">
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="padding-bottom:20px;border-bottom:1px solid var(--border);">
+            <div class="label" style="margin-bottom:8px;">ข้อมูลการ์ตูน</div>
+            <div style="font-size:1.8rem;font-weight:900;">ハイキュー!!</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div><div class="text-small text-gray">ผู้แต่ง</div><div style="font-weight:600;margin-top:2px;">Haruichi Furudate</div></div>
+            <div><div class="text-small text-gray">สำนักพิมพ์</div><div style="font-weight:600;margin-top:2px;">Shueisha</div></div>
+            <div><div class="text-small text-gray">นิตยสาร</div><div style="font-weight:600;margin-top:2px;">Weekly Shonen Jump</div></div>
+            <div><div class="text-small text-gray">ช่วงเวลา</div><div style="font-weight:600;margin-top:2px;">2012 – 2020</div></div>
+            <div><div class="text-small text-gray">จำนวนเล่ม</div><div style="font-weight:600;margin-top:2px;">45 เล่ม</div></div>
+            <div><div class="text-small text-gray">จำนวนตอน</div><div style="font-weight:600;margin-top:2px;">402 ตอน</div></div>
+            <div><div class="text-small text-gray">Anime Studio</div><div style="font-weight:600;margin-top:2px;">Production I.G.</div></div>
+            <div><div class="text-small text-gray">ซีซัน</div><div style="font-weight:600;margin-top:2px;">4 ซีซัน + 2 Movie</div></div>
+          </div>
+          <div style="padding-top:20px;border-top:1px solid var(--border);">
+            <div class="tag tag--orange">Shonen</div>
+            <span style="margin-left:8px;"></span>
+            <div class="tag tag--dark" style="display:inline-flex;">Sports</div>
+            <span style="margin-left:8px;"></span>
+            <div class="tag tag--orange" style="display:inline-flex;">Comedy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Featured Characters ───────────────────────── -->
+<section class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">ตัวละครเด่น</div>
+      <h2 style="margin:12px 0 16px;">คู่หูที่ไม่มีวันหยุด</h2>
+      <p>Hinata และ Kageyama — ความแตกต่างที่สร้างประกายที่ยิ่งใหญ่</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;">
+      <!-- Hinata Card -->
+      <div class="card reveal reveal-delay-1" style="overflow:hidden;position:relative;">
+        <div style="height:6px;background:var(--orange);"></div>
+        <div style="padding:32px;text-align:center;">
+          <div style="width:100px;height:100px;border-radius:50%;margin:0 auto 20px;background:linear-gradient(135deg,#FF9A5C,#D4520E);display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:0 8px 32px rgba(242,101,34,0.3);overflow:hidden;">
+            <img src="images/characters/karasuno/hinata.jpg" alt="Hinata" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.textContent='🧡'"/>
+          </div>
+          <div class="label" style="margin-bottom:4px;">Karasuno #10</div>
+          <h3 style="margin-bottom:4px;">Shoyo Hinata</h3>
+          <div style="color:var(--gray-light);font-size:0.85rem;margin-bottom:16px;">日向 翔陽</div>
+          <div class="tag tag--orange">Middle Blocker</div>
+          <p style="margin-top:16px;font-size:0.875rem;color:var(--gray);line-height:1.7;">"ฟ้าผ่า" ที่กระโดดสูงกว่าทุกคน ไม่ยอมแพ้แม้สักครั้ง</p>
+        </div>
+      </div>
+
+      <!-- VS Card -->
+      <div class="reveal reveal-delay-2" style="display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:4rem;font-weight:900;color:var(--border);line-height:1;margin-bottom:16px;">×</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);">The Freak Quick</div>
+          <div style="margin:16px auto;width:80px;height:1px;background:linear-gradient(to right,transparent,var(--orange),transparent);"></div>
+          <p style="font-size:0.8rem;color:var(--gray);max-width:160px;margin:0 auto;line-height:1.6;">การผสานที่สมบูรณ์แบบของพลังและความฉลาด</p>
+        </div>
+      </div>
+
+      <!-- Kageyama Card -->
+      <div class="card reveal reveal-delay-3" style="overflow:hidden;">
+        <div style="height:6px;background:#1B4D8E;"></div>
+        <div style="padding:32px;text-align:center;">
+          <div style="width:100px;height:100px;border-radius:50%;margin:0 auto 20px;background:linear-gradient(135deg,#4A90D9,#1B4D8E);display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:0 8px 32px rgba(27,77,142,0.3);overflow:hidden;">
+            <img src="images/characters/karasuno/kageyama.jpg" alt="Kageyama" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.textContent='👑'"/>
+          </div>
+          <div class="label" style="margin-bottom:4px;color:#1B4D8E;">Karasuno #9</div>
+          <h3 style="margin-bottom:4px;">Tobio Kageyama</h3>
+          <div style="color:var(--gray-light);font-size:0.85rem;margin-bottom:16px;">影山 飛雄</div>
+          <div class="tag" style="background:#EEF4FF;color:#1B4D8E;">Setter</div>
+          <p style="margin-top:16px;font-size:0.875rem;color:var(--gray);line-height:1.7;">"กษัตริย์แห่งสนาม" ผู้มีเซตที่แม่นยำที่สุดในรุ่น</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;" class="reveal">
+      <a href="characters.html" class="btn btn--outline">ดูตัวละครทั้งหมด →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Teams Section ─────────────────────────────── -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">ทีมทั้งหมด</div>
+      <h2 style="margin:12px 0 16px;">คู่แข่งที่ยิ่งใหญ่</h2>
+      <p>แต่ละทีมมีสไตล์และปรัชญาที่แตกต่างกัน สร้างเรื่องราวที่น่าจดจำ</p>
+    </div>
+
+    <div class="grid-3" id="teams-grid">
+      <a href="characters.html?team=karasuno" class="card reveal reveal-delay-1" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-karasuno);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">KRS</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Karasuno High</div>
+          <div style="font-size:0.8rem;color:var(--gray);">烏野高校 · กาอีกาบิน</div>
+          <div style="margin-top:6px;"><span class="tag tag--orange" style="font-size:0.68rem;">ทีมหลัก</span></div>
+        </div>
+      </a>
+      <a href="characters.html?team=aoba" class="card reveal reveal-delay-2" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-aoba);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">AJO</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Aoba Johsai</div>
+          <div style="font-size:0.8rem;color:var(--gray);">青葉城西高校 · Oikawa's Team</div>
+        </div>
+      </a>
+      <a href="characters.html?team=nekoma" class="card reveal reveal-delay-3" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-nekoma);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">NKM</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Nekoma High</div>
+          <div style="font-size:0.8rem;color:var(--gray);">音駒高校 · Connect</div>
+        </div>
+      </a>
+      <a href="characters.html?team=fukurodani" class="card reveal reveal-delay-1" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-fukurodani);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">FKD</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Fukurodani Academy</div>
+          <div style="font-size:0.8rem;color:var(--gray);">梟谷学園 · Bokuto's Team</div>
+        </div>
+      </a>
+      <a href="characters.html?team=shiratoriz" class="card reveal reveal-delay-2" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-shiratoriz);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">SHR</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Shiratorizawa</div>
+          <div style="font-size:0.8rem;color:var(--gray);">白鳥沢 · ผู้แข็งแกร่งอยู่รอด</div>
+        </div>
+      </a>
+      <a href="characters.html?team=inarizaki" class="card reveal reveal-delay-3" style="padding:28px;display:flex;align-items:center;gap:20px;">
+        <div style="width:56px;height:56px;border-radius:12px;background:var(--team-inarizaki);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;">INR</div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Inarizaki High</div>
+          <div style="font-size:0.8rem;color:var(--gray);">稲荷崎 · พี่น้อง Miya</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Quick Facts ────────────────────────────────── -->
+<section class="section section-ink">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label" style="color:var(--orange);">น่ารู้</div>
+      <h2 style="color:var(--white);margin:12px 0 16px;">ข้อเท็จจริงที่น่าสนใจ</h2>
+    </div>
+    <div class="grid-3">
+      <div class="reveal reveal-delay-1" style="padding:32px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">📖</div>
+        <h4 style="color:var(--white);margin-bottom:8px;">ชื่อมีความหมาย</h4>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;line-height:1.7;">"Hinata" แปลว่า "แสงแดด" ส่วน "Kageyama" แปลว่า "เงา" — ตรงข้ามกันอย่างสมบูรณ์แบบ</p>
+      </div>
+      <div class="reveal reveal-delay-2" style="padding:32px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">✏️</div>
+        <h4 style="color:var(--white);margin-bottom:8px;">ผู้แต่งเป็นผู้หญิง</h4>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;line-height:1.7;">Haruichi Furudate เป็นผู้หญิง หลายคนคิดว่าเป็นผู้ชายเพราะความสมจริงของตัวละคร</p>
+      </div>
+      <div class="reveal reveal-delay-3" style="padding:32px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="font-size:2.5rem;margin-bottom:16px;">🏐</div>
+        <h4 style="color:var(--white);margin-bottom:8px;">เทคนิคเป็นของจริง</h4>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;line-height:1.7;">ทุกเทคนิคในเรื่องมีพื้นฐานจากวอลเลย์บอลจริง ผู้แต่งค้นคว้าอย่างละเอียด</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <a href="trivia.html" class="btn btn--orange">ดูเกร็ดความรู้ทั้งหมด →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────── -->
+<section class="section--sm" style="background:var(--orange-pale);border-top:1px solid var(--border);">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <div style="font-size:3rem;margin-bottom:16px;">🏐</div>
+      <h2 style="margin-bottom:12px;">พร้อมเริ่มต้นแล้วหรือยัง?</h2>
+      <p style="color:var(--gray);margin-bottom:32px;">สำรวจโลกของ Haikyuu!! ตัวละคร เรื่องราว และความลับที่ซ่อนอยู่</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="characters.html" class="btn btn--primary">ตัวละคร</a>
+        <a href="timeline.html"   class="btn btn--outline">Timeline</a>
+        <a href="trivia.html"     class="btn btn--outline">เกร็ดความรู้</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="nav__logo" style="margin-bottom:16px;color:white;">
+          <div class="nav__logo-mark">HQ</div>
+          Haikyuu!!
+        </div>
+        <p>Fan Site สำหรับแฟนๆ Haikyuu!! ข้อมูลตัวละคร Timeline และเกร็ดความรู้ครบครัน</p>
+      </div>
+      <div class="footer__col">
+        <h4>เนื้อหา</h4>
+        <ul>
+          <li><a href="characters.html">ตัวละครทั้งหมด</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="trivia.html">เกร็ดความรู้</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>ทีม</h4>
+        <ul>
+          <li><a href="characters.html?team=karasuno">Karasuno</a></li>
+          <li><a href="characters.html?team=nekoma">Nekoma</a></li>
+          <li><a href="characters.html?team=aoba">Aoba Johsai</a></li>
+          <li><a href="characters.html?team=shiratoriz">Shiratorizawa</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>เกี่ยวกับ</h4>
+        <ul>
+          <li><a href="#">Haikyuu!! Wiki</a></li>
+          <li><a href="#">Manga (Shueisha)</a></li>
+          <li><a href="#">Anime (Crunchyroll)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2024 Haikyuu!! Fan Site — ข้อมูลทั้งหมดเป็นสิทธิ์ของ <a href="#">Haruichi Furudate / Shueisha</a></div>
+      <div>สร้างด้วย ❤️ สำหรับแฟนๆ</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

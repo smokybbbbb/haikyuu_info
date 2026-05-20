@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="เกร็ดความรู้ สิ่งที่น่าสนใจ และข้อเท็จจริงที่หลายคนไม่รู้เกี่ยวกับ Haikyuu!!"/>
+  <title>เกร็ดความรู้ — Haikyuu!!</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <style>
+    .cat-filter { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:48px; }
+    .cat-btn {
+      padding:8px 20px; border-radius:100px; font-size:0.82rem; font-weight:600;
+      border:1.5px solid var(--border); color:var(--gray-dark); background:var(--white);
+      cursor:pointer; transition:var(--trans);
+    }
+    .cat-btn:hover, .cat-btn.active { background:#111111; border-color:#111111; color:#fff; }
+
+    .flip-card {
+      perspective: 1000px;
+      height: 220px;
+      cursor: pointer;
+    }
+    .flip-card__inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card__inner { transform: rotateY(180deg); }
+    .flip-card__front, .flip-card__back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .flip-card__front {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .flip-card__back {
+      background: #111111;
+      color: #ffffff;
+      transform: rotateY(180deg);
+    }
+    .flip-hint {
+      font-size: 0.7rem; font-weight:600; letter-spacing:0.08em;
+      text-transform:uppercase; color:var(--gray-light);
+      position:absolute; bottom:16px; right:16px;
+    }
+
+    .rank-card {
+      display:flex; align-items:center; gap:20px;
+      padding:20px 24px;
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      transition:var(--trans);
+    }
+    .rank-card:hover { box-shadow:var(--shadow); border-color:transparent; transform:translateX(4px); }
+    .rank-num {
+      font-size:2rem; font-weight:900; color:var(--border);
+      width:48px; text-align:center; flex-shrink:0; line-height:1;
+    }
+    .rank-num.gold   { color:#F59E0B; }
+    .rank-num.silver { color:#9CA3AF; }
+    .rank-num.bronze { color:#B45309; }
+
+    .quote-card {
+      padding:36px;
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      border-left:4px solid var(--orange);
+      transition:var(--trans);
+      position:relative;
+    }
+    .quote-card:hover { box-shadow:var(--shadow-l); border-color:transparent; border-left-color:var(--orange); }
+    .quote-card::before {
+      content:'"';
+      position:absolute; top:16px; left:20px;
+      font-size:5rem; font-weight:900; color:var(--orange);
+      opacity:0.1; line-height:1;
+    }
+    .quote-card__text { font-size:1.05rem; font-style:italic; line-height:1.8; margin-bottom:16px; }
+    .quote-card__author { font-size:0.82rem; font-weight:700; color:var(--orange); }
+    .quote-card__char { font-size:0.78rem; color:var(--gray); margin-top:2px; }
+
+    .power-row {
+      display:grid; grid-template-columns:140px 1fr 40px;
+      align-items:center; gap:16px; padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .power-row:last-child { border-bottom:none; }
+
+    @media (max-width:768px) {
+      .flip-card { height:200px; }
+      .quote-card { padding:24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────── -->
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <div class="nav__logo-mark">HQ</div>
+    Haikyuu!!
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html"      class="nav__link">หน้าหลัก</a></li>
+    <li><a href="characters.html" class="nav__link">ตัวละคร</a></li>
+    <li><a href="timeline.html"   class="nav__link">Timeline</a></li>
+    <li><a href="trivia.html"     class="nav__link">เกร็ดความรู้</a></li>
+  </ul>
+  <button class="nav__toggle" aria-label="เมนู">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile-menu">
+  <a href="index.html"      class="nav__mobile-link">หน้าหลัก</a>
+  <a href="characters.html" class="nav__mobile-link">ตัวละคร</a>
+  <a href="timeline.html"   class="nav__mobile-link">Timeline</a>
+  <a href="trivia.html"     class="nav__mobile-link active">เกร็ดความรู้</a>
+</div>
+
+<!-- ─── Page Header ──────────────────────────────── -->
+<header class="page-header" style="background:var(--white);">
+  <div class="container">
+    <div class="label reveal">Did You Know?</div>
+    <h1 class="reveal reveal-delay-1">เกร็ดความรู้</h1>
+    <p class="reveal reveal-delay-2">ข้อเท็จจริง สิ่งที่น่าสนใจ และความลับที่หลายคนอาจยังไม่รู้เกี่ยวกับ Haikyuu!!</p>
+  </div>
+</header>
+
+<!-- ─── Highlight Stats ───────────────────────────── -->
+<div class="section-ink" style="padding:48px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.1);border-radius:var(--radius);overflow:hidden;">
+      <div style="background:#111111;padding:32px;text-align:center;" class="reveal">
+        <div style="font-size:3rem;font-weight:900;color:var(--orange);" data-count="60">0</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:6px;">ล้านเล่มทั่วโลก</div>
+      </div>
+      <div style="background:#111111;padding:32px;text-align:center;" class="reveal reveal-delay-1">
+        <div style="font-size:3rem;font-weight:900;color:var(--orange);" data-count="402">0</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:6px;">ตอน Manga</div>
+      </div>
+      <div style="background:#111111;padding:32px;text-align:center;" class="reveal reveal-delay-2">
+        <div style="font-size:3rem;font-weight:900;color:var(--orange);" data-count="333">0</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:6px;">cm ความสูง Spike ของ Hinata</div>
+      </div>
+      <div style="background:#111111;padding:32px;text-align:center;" class="reveal reveal-delay-3">
+        <div style="font-size:3rem;font-weight:900;color:var(--orange);" data-count="8">0</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:6px;">ปีที่ลง Weekly Jump</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Did You Know — Flip Cards ─────────────────── -->
+<section class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">Did You Know?</div>
+      <h2 style="margin:12px 0 16px;">คลิกการ์ดเพื่อดูคำตอบ</h2>
+      <p>เกร็ดความรู้ที่หลายคนอาจไม่เคยรู้มาก่อน</p>
+    </div>
+
+    <div class="grid-3" style="gap:20px;">
+
+      <div class="flip-card reveal reveal-delay-1" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🏐</div>
+            <h4 style="margin-bottom:8px;">ทำไม Hinata ถึงกระโดดสูงมาก?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">ตัวสูง 162 cm แต่กระโดดสูงถึงระดับผู้เล่น 185 cm ได้อย่างไร?</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">Spike Reach 333 cm!</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">Hinata มี Spike Reach 333 cm จากกระโดดแทบจะสูงสุดของเรื่อง เทียบได้กับผู้เล่นที่สูง 185+ cm ความลับอยู่ที่เทคนิค Jump และ Approach ที่สมบูรณ์แบบ ไม่ใช่แค่พลังขา</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal reveal-delay-2" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">✏️</div>
+            <h4 style="margin-bottom:8px;">ใครแต่ง Haikyuu!!?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">หลายคนเดาผิดเกี่ยวกับเพศของผู้แต่ง</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">Haruichi Furudate เป็นผู้หญิง!</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">ผู้แต่ง Haikyuu!! เป็นผู้หญิง ซึ่งหลายคนประหลาดใจ เพราะตัวละครชายในเรื่องมีความลึกและสมจริงมาก เธอใช้ชื่อแฝงที่ฟังดูเป็นกลางทางเพศ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal reveal-delay-3" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">👑</div>
+            <h4 style="margin-bottom:8px;">ทำไม Kageyama ถูกเรียกว่า "กษัตริย์"?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">ฉายาที่ฟังดูดี แต่จริงๆ ไม่ใช่คำชม</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">"กษัตริย์เผด็จการ"</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">ที่ Kitagawa Daiichi ม.ต้น เพื่อนร่วมทีมตั้งฉายา "กษัตริย์แห่งสนาม" ให้ Kageyama ในแง่ลบ หมายถึงเขาเป็น "เผด็จการ" ที่ไม่ฟังใคร เป็นจุดเริ่มต้นของ Character Arc ทั้งหมด</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal reveal-delay-1" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🦉</div>
+            <h4 style="margin-bottom:8px;">Bokuto อันดับเท่าไหร่?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">เขาบอกว่าตัวเองเก่ง แต่อันดับจริงเป็นอย่างไร?</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">Top 5 Aces ของญี่ปุ่น!</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">Bokuto อยู่ใน Top 5 Wing Spiker ของญี่ปุ่น ส่วน Top 3 คือ Ushijima, Sakusa, Oikawa (Setter) Bokuto มักบอกว่าตัวเองอยู่ Top 5 ซึ่งพูดถูกแต่ไม่ได้ Top 3</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal reveal-delay-2" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🐈</div>
+            <h4 style="margin-bottom:8px;">Kenma กลายเป็นอะไรหลังเรียนจบ?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">เขาไม่ได้เล่นวอลเลย์บอลอาชีพ แล้วทำอะไร?</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">YouTuber / Streamer ดัง!</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">Kenma กลายเป็น Content Creator / Streamer ที่ดังมากในตอนจบ และเป็นเจ้าของ Esports Team ด้วย สะท้อนบุคลิกของเขาที่ชอบเกมมากกว่าวอลเลย์บอล</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal reveal-delay-3" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🎯</div>
+            <h4 style="margin-bottom:8px;">Tendou เดาการตีได้อย่างไร?</h4>
+            <p style="font-size:0.82rem;color:var(--gray);">"Guess Monster" มีพลังพิเศษจริงๆ หรือเปล่า?</p>
+            <div class="flip-hint">คลิกเพื่อดู ▸</div>
+          </div>
+          <div class="flip-card__back">
+            <div style="font-size:1.5rem;margin-bottom:12px;">💡</div>
+            <h4 style="color:var(--orange);margin-bottom:10px;">ล้วนเป็นการอ่านจังหวะ!</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;">Tendou ไม่ได้มีพลังพิเศษ แต่เก่งมากในการอ่านจังหวะเซต ท่าทาง และความเคยชินของคู่แข่ง เขาพัฒนาทักษะนี้จากการถูกรังแกในวัยเด็กและต้องการ "เดาให้ถูก" เพื่อพิสูจน์ตัวเอง</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Top Aces Ranking ───────────────────────────── -->
+<section class="section--sm" style="background:var(--white);border-top:1px solid var(--border);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+
+      <div>
+        <div class="label reveal" style="margin-bottom:12px;">อันดับ</div>
+        <h2 class="reveal reveal-delay-1" style="margin-bottom:32px;">Top Wing Spikers<br/>ของญี่ปุ่น</h2>
+
+        <div style="display:flex;flex-direction:column;" class="reveal reveal-delay-2">
+          <div class="rank-card">
+            <div class="rank-num gold">1</div>
+            <div>
+              <div style="font-weight:700;">Wakatoshi Ushijima</div>
+              <div class="text-small text-gray">Shiratorizawa → Schweiden Adlers</div>
+            </div>
+            <div class="tag" style="background:#FFF8E1;color:#F59E0B;margin-left:auto;flex-shrink:0;">Left-Hander</div>
+          </div>
+          <div class="rank-card">
+            <div class="rank-num silver">2</div>
+            <div>
+              <div style="font-weight:700;">Kiyoomi Sakusa</div>
+              <div class="text-small text-gray">Itachiyama → MSBY Black Jackals</div>
+            </div>
+            <div class="tag tag--dark" style="margin-left:auto;flex-shrink:0;">Curve Shot</div>
+          </div>
+          <div class="rank-card">
+            <div class="rank-num bronze">3</div>
+            <div>
+              <div style="font-weight:700;">Korai Hoshiumi</div>
+              <div class="text-small text-gray">Kamomedai → Schweiden Adlers</div>
+            </div>
+            <div class="tag tag--orange" style="margin-left:auto;flex-shrink:0;">Small Giant</div>
+          </div>
+          <div class="rank-card">
+            <div class="rank-num" style="color:var(--gray-light);">4</div>
+            <div>
+              <div style="font-weight:700;">Kotaro Bokuto</div>
+              <div class="text-small text-gray">Fukurodani → MSBY Black Jackals</div>
+            </div>
+            <div class="tag tag--dark" style="margin-left:auto;flex-shrink:0;">Power Ace</div>
+          </div>
+          <div class="rank-card">
+            <div class="rank-num" style="color:var(--gray-light);">5</div>
+            <div>
+              <div style="font-weight:700;">Aran Ojiro</div>
+              <div class="text-small text-gray">Inarizaki → Pro League</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Power Comparison -->
+      <div>
+        <div class="label reveal" style="margin-bottom:12px;">เปรียบเทียบ</div>
+        <h2 class="reveal reveal-delay-1" style="margin-bottom:32px;">พลังตีของ<br/>ท็อป Spiker</h2>
+
+        <div class="reveal reveal-delay-2">
+          <div class="power-row">
+            <div style="font-weight:600;font-size:0.9rem;">Ushijima</div>
+            <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div class="stat-bar__fill" data-value="99" style="background:#7B3FBE;height:100%;width:0;transition:width 1.2s ease 0.2s;"></div>
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;color:#7B3FBE;">99</div>
+          </div>
+          <div class="power-row">
+            <div style="font-weight:600;font-size:0.9rem;">Bokuto</div>
+            <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div class="stat-bar__fill" data-value="96" style="background:#2D2D2D;height:100%;width:0;transition:width 1.2s ease 0.3s;"></div>
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;">96</div>
+          </div>
+          <div class="power-row">
+            <div style="font-weight:600;font-size:0.9rem;">Sakusa</div>
+            <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div class="stat-bar__fill" data-value="90" style="background:#1B4D8E;height:100%;width:0;transition:width 1.2s ease 0.4s;"></div>
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;color:#1B4D8E;">90</div>
+          </div>
+          <div class="power-row">
+            <div style="font-weight:600;font-size:0.9rem;">Asahi</div>
+            <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div class="stat-bar__fill" data-value="92" style="background:var(--orange);height:100%;width:0;transition:width 1.2s ease 0.5s;"></div>
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;color:var(--orange);">92</div>
+          </div>
+          <div class="power-row">
+            <div style="font-weight:600;font-size:0.9rem;">Tanaka</div>
+            <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+              <div class="stat-bar__fill" data-value="84" style="background:var(--orange);height:100%;width:0;transition:width 1.2s ease 0.6s;"></div>
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;color:var(--orange);">84</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Trivia Cards ───────────────────────────────── -->
+<section class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">เกร็ดน่ารู้</div>
+      <h2 style="margin:12px 0 16px;">Facts & Trivia</h2>
+      <p>ข้อมูลน่าสนใจที่คุณอาจพลาดไป</p>
+    </div>
+
+    <div class="grid-3" id="trivia-grid"></div>
+  </div>
+</section>
+
+<!-- ─── Memorable Quotes ──────────────────────────── -->
+<section class="section--sm" style="background:var(--white);border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">คำคม</div>
+      <h2 style="margin:12px 0 16px;">ประโยคที่น่าจดจำ</h2>
+    </div>
+
+    <div class="grid-2" style="gap:24px;">
+
+      <div class="quote-card reveal reveal-delay-1">
+        <div class="quote-card__text">"แม้แค่ขยับตัวนิดเดียวก็ยังดีกว่าหยุดอยู่กับที่!"</div>
+        <div class="quote-card__author">Shoyo Hinata</div>
+        <div class="quote-card__char">日向 翔陽 · Karasuno #10</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-2">
+        <div class="quote-card__text">"พรสวรรค์เป็นสิ่งที่น่าอัปยศถ้าไม่ทุ่มเทฝึกซ้อม"</div>
+        <div class="quote-card__author">Tooru Oikawa</div>
+        <div class="quote-card__char">及川 徹 · Aoba Johsai Captain</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-1">
+        <div class="quote-card__text">"ชัยชนะหรือความพ่ายแพ้ — ชีวิตยังดำเนินต่อไปอยู่ดี แต่มันสำคัญมากในวินาทีนั้น"</div>
+        <div class="quote-card__author">Kei Tsukishima</div>
+        <div class="quote-card__char">月島 蛍 · Karasuno #11</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-2">
+        <div class="quote-card__text">"ทุกคนต้องการเป็นผู้ชนะ แต่ถ้าชนะคนเดียว... ฉันก็ชนะมาแล้วและก็ยังแพ้อยู่"</div>
+        <div class="quote-card__author">Tobio Kageyama</div>
+        <div class="quote-card__char">影山 飛雄 · Karasuno #9</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-1">
+        <div class="quote-card__text">"เพียง 1 แต้ม ก็เปลี่ยนทุกอย่างได้ มันคือจุดที่ทำให้ทั้งหมดคุ้มค่า"</div>
+        <div class="quote-card__author">Tetsurou Kuroo</div>
+        <div class="quote-card__char">黒尾 鉄朗 · Nekoma Captain</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-2">
+        <div class="quote-card__text">"ไม่ว่าจะตัวเล็กหรือตัวใหญ่ ถ้าหัวใจยังลุกโชน ก็ยังบินได้"</div>
+        <div class="quote-card__author">Ittetsu Takeda</div>
+        <div class="quote-card__char">武田一鉄 · Karasuno Coach</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-1">
+        <div class="quote-card__text">"ฉันไม่ต้องการความทรงจำที่งดงาม ฉันต้องการชัยชนะ"</div>
+        <div class="quote-card__author">Atsumu Miya</div>
+        <div class="quote-card__char">宮 侑 · Inarizaki / MSBY</div>
+      </div>
+
+      <div class="quote-card reveal reveal-delay-2">
+        <div class="quote-card__text">"Libero ก็บินได้!"</div>
+        <div class="quote-card__author">Yu Nishinoya</div>
+        <div class="quote-card__char">西谷 夕 · Karasuno Libero</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Fun Facts List ─────────────────────────────── -->
+<section class="section section-ink">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label" style="color:var(--orange);">100% น่าสนใจ</div>
+      <h2 style="color:white;margin:12px 0 16px;">สิ่งที่หลายคนไม่รู้</h2>
+    </div>
+
+    <div class="grid-2" style="gap:20px;">
+
+      <div class="reveal reveal-delay-1" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">🇧🇷</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Hinata ไปบราซิล</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">หลังจบม.ปลาย Hinata ไปฝึกวอลเลย์บอลบีชในบราซิลด้วยตัวเองโดยไม่มีทีมรองรับ เพื่อพัฒนาทักษะพื้นฐาน Receive และ Defense จากศูนย์ ก่อนกลับมาเป็นนักอาชีพ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">👨‍🍳</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Osamu เปิดร้านข้าวปั้น</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">Osamu Miya เลิกเล่นวอลเลย์บอลหลังม.ปลายเพื่อเปิดร้าน Onigiri Miya ที่ประสบความสำเร็จอย่างมาก กลายเป็นร้านดังที่มีแฟนๆ มาต่อคิวรอ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">💍</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Tanaka แต่งงานกับ Kiyoko</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">Tanaka ที่ชอบ Kiyoko มาตลอดทั้งเรื่อง ในตอนจบพวกเขาแต่งงานกัน หนึ่งใน Ending ที่แฟนๆ ดีใจมากที่สุด</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">👮</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Daichi เป็นตำรวจ</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">หลังเรียนจบ Daichi Sawamura กัปตัน Karasuno กลายเป็นตำรวจ สอดคล้องกับบุคลิกผู้นำที่ปกป้องและดูแลทุกคน</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">🇦🇷</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Oikawa ย้ายไปอาร์เจนตินา</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">Oikawa ตัดสินใจย้ายไปเล่นวอลเลย์บอลในอาร์เจนตินาแทนที่จะเข้าทีมชาติญี่ปุ่น เพราะต้องการพิสูจน์ตัวเองในสนามที่ต่างออกไป</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding:28px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="font-size:2rem;flex-shrink:0;">📚</div>
+          <div>
+            <h4 style="color:white;margin-bottom:8px;">Sugawara เป็นครู</h4>
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.7;">Sugawara กลายเป็นครูในตอนจบ สะท้อนบุคลิกของเขาที่ชอบสนับสนุนและพัฒนาคนอื่น ตลอดทั้งเรื่องเขาทำหน้าที่นั้นให้กับทีม</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="nav__logo" style="margin-bottom:16px;color:white;">
+          <div class="nav__logo-mark">HQ</div>
+          Haikyuu!!
+        </div>
+        <p>Fan Site สำหรับแฟนๆ Haikyuu!! ข้อมูลตัวละคร Timeline และเกร็ดความรู้ครบครัน</p>
+      </div>
+      <div class="footer__col">
+        <h4>เนื้อหา</h4>
+        <ul>
+          <li><a href="characters.html">ตัวละครทั้งหมด</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="trivia.html">เกร็ดความรู้</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>หัวข้อ</h4>
+        <ul>
+          <li><a href="#">Did You Know?</a></li>
+          <li><a href="#">Top Rankings</a></li>
+          <li><a href="#">Memorable Quotes</a></li>
+          <li><a href="#">Fun Facts</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>เกี่ยวกับ</h4>
+        <ul>
+          <li><a href="#">Haikyuu!! Wiki</a></li>
+          <li><a href="#">Manga (Shueisha)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2024 Haikyuu!! Fan Site — ข้อมูลทั้งหมดเป็นสิทธิ์ของ Haruichi Furudate / Shueisha</div>
+      <div>สร้างด้วย ❤️</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* Render Trivia Cards from data.js */
+function renderTrivia() {
+  const grid = document.getElementById('trivia-grid');
+  if (!grid || !window.TRIVIA) return;
+  TRIVIA.forEach((t, i) => {
+    const delay = (i % 3) + 1;
+    const el = document.createElement('div');
+    el.className = `trivia-card reveal reveal-delay-${delay}`;
+    el.innerHTML = `
+      <span class="trivia-card__num">${t.num}</span>
+      <div style="font-size:1.5rem;margin-bottom:10px;">${t.icon}</div>
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">${t.category}</div>
+      <h4 style="margin-bottom:10px;">${t.title}</h4>
+      <p>${t.body}</p>
+    `;
+    grid.appendChild(el);
+  });
+  document.querySelectorAll('#trivia-grid .reveal').forEach(el => revealObserver.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderTrivia();
+  /* Trigger stat bars in power section */
+  const powerSection = document.querySelector('.power-row');
+  if (powerSection) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.power-row .stat-bar__fill').forEach(f => {
+            f.style.width = f.dataset.value + '%';
+          });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(powerSection);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ตัวละครทั้งหมดใน Haikyuu!! — Karasuno, Nekoma, Aoba Johsai, Fukurodani, Shiratorizawa และอื่นๆ"/>
+  <title>ตัวละคร — Haikyuu!!</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <style>
+    .char-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .team-section { margin-bottom: 80px; }
+    .char-card__img-wrap { aspect-ratio: 2/3; background: var(--light-gray, #f5f5f7); }
+    .char-card[style*="display: none"] { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────── -->
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <div class="nav__logo-mark">HQ</div>
+    Haikyuu!!
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html"      class="nav__link">หน้าหลัก</a></li>
+    <li><a href="characters.html" class="nav__link">ตัวละคร</a></li>
+    <li><a href="timeline.html"   class="nav__link">Timeline</a></li>
+    <li><a href="trivia.html"     class="nav__link">เกร็ดความรู้</a></li>
+  </ul>
+  <button class="nav__toggle" aria-label="เมนู">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile-menu">
+  <a href="index.html"      class="nav__mobile-link">หน้าหลัก</a>
+  <a href="characters.html" class="nav__mobile-link">ตัวละคร</a>
+  <a href="timeline.html"   class="nav__mobile-link">Timeline</a>
+  <a href="trivia.html"     class="nav__mobile-link">เกร็ดความรู้</a>
+</div>
+
+<!-- ─── Page Header ──────────────────────────────── -->
+<header class="page-header" style="background:var(--white);">
+  <div class="container">
+    <div class="label reveal">ทีมทั้งหมด</div>
+    <h1 class="reveal reveal-delay-1">ตัวละคร</h1>
+    <p class="reveal reveal-delay-2">ผู้เล่นทุกคนที่ทำให้ Haikyuu!! น่าจดจำ — จาก Karasuno ถึงสนามระดับประเทศ</p>
+  </div>
+</header>
+
+<!-- ─── Filter Bar ────────────────────────────────── -->
+<div style="background:var(--white);border-bottom:1px solid var(--border);padding:20px 0;position:sticky;top:64px;z-index:100;backdrop-filter:blur(20px);">
+  <div class="container">
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+      <button class="filter-btn" data-filter="karasuno"   style="--c:var(--team-karasuno)">Karasuno</button>
+      <button class="filter-btn" data-filter="aoba"       style="--c:var(--team-aoba)">Aoba Johsai</button>
+      <button class="filter-btn" data-filter="nekoma"     style="--c:var(--team-nekoma)">Nekoma</button>
+      <button class="filter-btn" data-filter="fukurodani" style="--c:var(--team-fukurodani)">Fukurodani</button>
+      <button class="filter-btn" data-filter="shiratoriz" style="--c:var(--team-shiratoriz)">Shiratorizawa</button>
+      <button class="filter-btn" data-filter="inarizaki"  style="--c:var(--team-inarizaki)">Inarizaki</button>
+      <button class="filter-btn" data-filter="others">อื่นๆ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Characters Grid ───────────────────────────── -->
+<main class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="char-grid" id="char-grid"></div>
+    <div id="no-results" class="hidden" style="text-align:center;padding:80px 0;">
+      <div style="font-size:3rem;margin-bottom:16px;">🔍</div>
+      <h3>ไม่พบตัวละคร</h3>
+      <p style="color:var(--gray);margin-top:8px;">ลองเลือกทีมอื่น</p>
+    </div>
+  </div>
+</main>
+
+<!-- ─── Team Details Sections ─────────────────────── -->
+<section class="section--sm" style="background:var(--white);border-top:1px solid var(--border);" id="team-details">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">เกี่ยวกับทีม</div>
+      <h2 style="margin:12px 0 16px;">ปรัชญาแต่ละทีม</h2>
+    </div>
+    <div class="grid-3" id="team-info-grid"></div>
+  </div>
+</section>
+
+<!-- ─── Modal ─────────────────────────────────────── -->
+<div class="modal-overlay" id="char-modal">
+  <div class="modal">
+    <button class="modal__close" aria-label="ปิด">✕</button>
+    <div class="modal__inner">
+      <div class="modal__img-side">
+        <img src="" alt="" style="display:none;"/>
+        <div class="modal__img-placeholder" style="font-size:6rem;"></div>
+        <div class="modal__img-overlay">
+          <div class="num"></div>
+          <h2></h2>
+          <p></p>
+        </div>
+      </div>
+      <div class="modal__content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Footer ────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="nav__logo" style="margin-bottom:16px;color:white;">
+          <div class="nav__logo-mark">HQ</div>
+          Haikyuu!!
+        </div>
+        <p>Fan Site สำหรับแฟนๆ Haikyuu!! ข้อมูลตัวละคร Timeline และเกร็ดความรู้ครบครัน</p>
+      </div>
+      <div class="footer__col">
+        <h4>เนื้อหา</h4>
+        <ul>
+          <li><a href="characters.html">ตัวละครทั้งหมด</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="trivia.html">เกร็ดความรู้</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>ทีม</h4>
+        <ul>
+          <li><a href="characters.html?team=karasuno">Karasuno</a></li>
+          <li><a href="characters.html?team=nekoma">Nekoma</a></li>
+          <li><a href="characters.html?team=aoba">Aoba Johsai</a></li>
+          <li><a href="characters.html?team=shiratoriz">Shiratorizawa</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>เกี่ยวกับ</h4>
+        <ul>
+          <li><a href="#">Haikyuu!! Wiki</a></li>
+          <li><a href="#">Manga (Shueisha)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2024 Haikyuu!! Fan Site — ข้อมูลทั้งหมดเป็นสิทธิ์ของ Haruichi Furudate / Shueisha</div>
+      <div>สร้างด้วย ❤️</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ─── Render Characters ──────────────────────────── */
+function teamColor(teamId) {
+  return (TEAMS[teamId] || {}).color || '#F26522';
+}
+
+function renderCharCard(char) {
+  const color = teamColor(char.team);
+  const teamName = (TEAMS[char.team] || {}).name || char.team;
+  const card = document.createElement('div');
+  card.className = 'char-card reveal';
+  card.setAttribute('data-team', char.team);
+  card.setAttribute('data-id', char.id);
+
+  card.innerHTML = `
+    <div class="char-card__img-wrap">
+      <div class="char-card__num" style="color:${color};">#${char.number}</div>
+      <img
+        class="char-card__img"
+        src="${char.image}"
+        alt="${char.name}"
+        loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      />
+      <div class="char-card__placeholder" style="background:linear-gradient(135deg,${color}22,${color}66);display:none;">${char.emoji || char.name[0]}</div>
+    </div>
+    <div class="char-card__body">
+      <div class="char-card__team" style="color:${color};">${teamName}</div>
+      <div class="char-card__name">${char.name}</div>
+      <div class="char-card__name-jp">${char.name_jp}</div>
+      <div class="char-card__meta">
+        <span class="tag" style="background:${color}18;color:${color};font-size:0.68rem;">${char.position.split('/')[0].trim()}</span>
+        <span class="tag tag--dark" style="font-size:0.68rem;">${char.height}</span>
+      </div>
+    </div>
+  `;
+
+  card.addEventListener('click', () => openModal(char));
+  return card;
+}
+
+function renderChars(filter = 'all') {
+  const grid = document.getElementById('char-grid');
+  const noRes = document.getElementById('no-results');
+  grid.innerHTML = '';
+  const filtered = filter === 'all'
+    ? CHARACTERS
+    : CHARACTERS.filter(c => c.team === filter);
+
+  if (filtered.length === 0) {
+    noRes.classList.remove('hidden');
+    return;
+  }
+  noRes.classList.add('hidden');
+
+  filtered.forEach((char, i) => {
+    const card = renderCharCard(char);
+    card.style.transitionDelay = (i % 4) * 0.07 + 's';
+    grid.appendChild(card);
+  });
+
+  // Re-observe for scroll reveal
+  document.querySelectorAll('.char-card.reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+/* ─── Team Info Sections ─────────────────────────── */
+function renderTeamInfo() {
+  const grid = document.getElementById('team-info-grid');
+  const teamList = [
+    { id: 'karasuno',   motto: 'Flightless Crows → Take Flight',  desc: 'ทีมที่เคยยิ่งใหญ่แต่ตกต่ำ ถูกเรียกว่า "กาอีกาบิน" ก่อนจะฟื้นคืนและบินสู่ระดับประเทศ' },
+    { id: 'nekoma',     motto: 'Connect',                          desc: 'ปรัชญา "เชื่อมต่อ" ทุกแต้มห้ามตก Defense ที่แข็งแกร่งที่สุด' },
+    { id: 'aoba',       motto: 'Draw Out the Best',                desc: 'Oikawa สร้างทีมโดยดึงศักยภาพสูงสุดจากทุกคน ไม่ใช่ดาวเดี่ยว' },
+    { id: 'fukurodani', motto: 'Leave It To Me',                   desc: 'ทีมชั้นยอดที่สมดุล Bokuto และ Akaashi เป็นคู่ที่ทรงพลัง' },
+    { id: 'shiratoriz', motto: 'The Strong Survive',               desc: 'ปรัชญาง่ายๆ "ผู้แข็งแกร่งชนะ" ไม่มีความซับซ้อน แค่บดขยี้คู่แข่ง' },
+    { id: 'inarizaki',  motto: 'We Don\'t Need Memories',          desc: 'ทีมที่ไม่ต้องการความทรงจำงดงาม ขอแค่ชัยชนะ พี่น้อง Miya คือหัวใจ' },
+  ];
+
+  teamList.forEach((t, i) => {
+    const team = TEAMS[t.id] || {};
+    const count = CHARACTERS.filter(c => c.team === t.id).length;
+    const el = document.createElement('div');
+    el.className = `reveal reveal-delay-${(i % 3) + 1}`;
+    el.style.cssText = 'padding:28px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);';
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+        <div style="width:44px;height:44px;border-radius:10px;background:${team.color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.78rem;color:white;flex-shrink:0;">${team.short}</div>
+        <div>
+          <div style="font-weight:700;font-size:1rem;">${team.name}</div>
+          <div style="font-size:0.8rem;color:var(--gray);">${team.name_jp}</div>
+        </div>
+      </div>
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${team.color};margin-bottom:8px;">"${t.motto}"</div>
+      <p style="font-size:0.875rem;color:var(--gray);line-height:1.7;margin-bottom:14px;">${t.desc}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:0.8rem;color:var(--gray-light);">${count} ตัวละคร</span>
+        <button onclick="filterTo('${t.id}')" style="font-size:0.8rem;font-weight:600;color:${team.color};background:${team.color}18;padding:6px 14px;border-radius:100px;border:none;cursor:pointer;">ดูทีม →</button>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+
+  document.querySelectorAll('#team-info-grid .reveal').forEach(el => revealObserver.observe(el));
+}
+
+function filterTo(team) {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === team);
+    });
+    renderChars(team);
+  }, 300);
+}
+
+/* ─── Filter Buttons ─────────────────────────────── */
+document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderChars(btn.dataset.filter);
+  });
+});
+
+/* ─── URL param team filter ──────────────────────── */
+function getUrlTeam() {
+  return new URLSearchParams(location.search).get('team');
+}
+
+/* ─── Init ───────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const urlTeam = getUrlTeam();
+  if (urlTeam) {
+    const btn = document.querySelector(`[data-filter="${urlTeam}"]`);
+    if (btn) {
+      document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderChars(urlTeam);
+    } else {
+      renderChars('all');
+    }
+  } else {
+    renderChars('all');
+  }
+  renderTeamInfo();
+});
+</script>
+</body>
+</html>

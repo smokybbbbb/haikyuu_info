@@ -1,0 +1,204 @@
+/* ─── Responsive ─────────────────────────────────── */
+
+/* Tablet: ≤ 1024px */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+  .container--wide { padding: 0 24px; }
+
+  .nav { padding: 0 24px; }
+
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  .modal__inner { grid-template-columns: 280px 1fr; }
+  .modal__img-placeholder { min-height: 400px; }
+
+  .timeline::before { left: 20px; }
+  .timeline-item { grid-template-columns: 40px 1fr; }
+  .timeline-item:nth-child(odd) .timeline-card,
+  .timeline-item:nth-child(even) .timeline-card {
+    grid-column: 2;
+    text-align: left;
+    padding-left: 24px;
+    padding-right: 0;
+  }
+  .timeline-item:nth-child(odd) .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot { grid-column: 1; }
+  .timeline-item:nth-child(odd) .timeline-empty,
+  .timeline-item:nth-child(even) .timeline-empty { display: none; }
+}
+
+/* Large Mobile: ≤ 768px */
+@media (max-width: 768px) {
+  :root { --radius: 12px; --radius-l: 16px; }
+
+  .section { padding: 72px 0; }
+  .section--sm { padding: 48px 0; }
+
+  .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+
+  h1 { font-size: 2.4rem; }
+  h2 { font-size: 1.8rem; }
+
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+
+  .page-header { padding: 120px 0 60px; }
+
+  .section-header { margin-bottom: 40px; }
+
+  .modal__inner { grid-template-columns: 1fr; }
+  .modal__img-side {
+    height: 300px;
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+  }
+  .modal__img-placeholder { min-height: 300px; }
+  .modal__content { padding: 28px; }
+  .modal__info-grid { grid-template-columns: 1fr 1fr; }
+
+  .footer__top { grid-template-columns: 1fr; gap: 28px; }
+  .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+
+  .char-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .filter-bar { gap: 6px; }
+  .filter-btn { padding: 7px 14px; font-size: 0.8rem; }
+}
+
+/* Small Mobile: ≤ 480px */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+
+  h1 { font-size: 2rem; letter-spacing: -0.03em; }
+  h2 { font-size: 1.5rem; }
+
+  .section { padding: 56px 0; }
+
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+
+  .char-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .char-card__body { padding: 12px; }
+  .char-card__name { font-size: 0.9rem; }
+
+  .btn { padding: 10px 20px; font-size: 0.85rem; }
+
+  .modal { border-radius: var(--radius); }
+  .modal__content { padding: 20px; }
+  .modal__info-grid { grid-template-columns: 1fr; }
+  .modal__img-side { height: 260px; }
+
+  .timeline-item { grid-template-columns: 32px 1fr; }
+  .timeline::before { left: 15px; }
+  .timeline-card { padding: 16px; }
+  .timeline-card h3 { font-size: 0.95rem; }
+
+  .trivia-card { padding: 20px; }
+  .trivia-card__num { font-size: 2rem; }
+
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .filter-bar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  .filter-btn { flex-shrink: 0; }
+
+  .marquee-inner { animation-duration: 15s; }
+
+  .footer__col { padding-bottom: 0; }
+
+  .nav { padding: 0 16px; }
+  .nav__logo { font-size: 1.1rem; }
+}
+
+/* Very small: ≤ 360px */
+@media (max-width: 360px) {
+  .char-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 1.8rem; }
+}
+
+/* Large Desktop: ≥ 1400px */
+@media (min-width: 1400px) {
+  .char-grid--wide { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero__volleyball { animation: none; }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:         #111111;
+    --white:      #1C1C1E;   /* card/surface background */
+    --dark:       #111111;   /* keep dark = dark, never flip */
+    --gray-dark:  #C7C7CC;
+    --gray:       #8E8E93;
+    --gray-light: #636366;
+    --border:     #2C2C2E;
+    --orange-pale: rgba(242,101,34,0.12);
+  }
+  /* Page text */
+  body { color: #F0F0F0; }
+  h1, h2, h3, h4, h5 { color: #F0F0F0; }
+  p { color: #C7C7CC; }
+
+  .nav { background: rgba(17,17,17,0.9); }
+
+  .char-card,
+  .timeline-card,
+  .trivia-card,
+  .modal { background: #1C1C1E; }
+
+  /* Buttons — always keep text white on dark bg */
+  .btn--primary  { background: #222; color: #fff; }
+  .btn--primary:hover { background: var(--orange); color: #fff; }
+  .btn--outline  { color: #F0F0F0; border-color: #3A3A3C; }
+  .btn--outline:hover { background: #F0F0F0; color: #111; }
+  .tag--dark     { background: #2C2C2E; color: #F0F0F0; }
+
+  /* Nav */
+  .nav__link { color: #C7C7CC; }
+  .nav__link:hover, .nav__link.active { background: #F0F0F0; color: #111; }
+
+  /* Filter */
+  .filter-btn { background: #1C1C1E; color: #C7C7CC; }
+  .filter-btn:hover { border-color: #F0F0F0; color: #F0F0F0; }
+  .filter-btn.active { background: #F0F0F0; border-color: #F0F0F0; color: #111; }
+
+  /* Arc buttons (timeline) */
+  .arc-btn { background: #1C1C1E; color: #C7C7CC; }
+  .arc-btn:hover, .arc-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+  .nav__mobile-menu { background: #1C1C1E; }
+  .nav__mobile-link { color: #C7C7CC; }
+  .nav__mobile-link:hover, .nav__mobile-link.active { background: #F0F0F0; color: #111; }
+
+  .modal-overlay { background: rgba(0,0,0,0.8); }
+  .modal__close  { background: #2C2C2E; color: #F0F0F0; }
+
+  /* Footer always dark */
+  .footer { background: #0A0A0A; }
+
+  /* Section ink override redundancy */
+  .section-ink,
+  .section-ink h1, .section-ink h2, .section-ink h3,
+  .section-ink h4, .section-ink h5 { color: #fff !important; }
+  .section-ink p { color: rgba(255,255,255,0.65) !important; }
+}
+
+/* Print */
+@media print {
+  .nav, .footer, .modal-overlay { display: none !important; }
+  .page-header { padding-top: 20px; }
+  .section { padding: 40px 0; }
+  .char-card { break-inside: avoid; }
+}
